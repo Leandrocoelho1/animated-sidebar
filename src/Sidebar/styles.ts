@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import {motion} from 'framer-motion'
 import styled, {css} from 'styled-components/macro'
 
 const baseStyles = css<{isActive: boolean}>`
@@ -7,8 +7,9 @@ const baseStyles = css<{isActive: boolean}>`
   height: 48px;
   padding: 12px;
   border-radius: 12px;
-  color: ${props => props.isActive ? 'var(--gray-900)' : 'var(--gray-600)'};
-  background-color: ${props => props.isActive ? 'var(--gray-100)' : 'transparent'};
+  color: ${props => (props.isActive ? 'var(--gray-900)' : 'var(--gray-600)')};
+  background-color: ${props =>
+    props.isActive ? 'var(--gray-100)' : 'transparent'};
   transition: color 150ms ease-out, background-color 150ms ease-out;
 `
 
@@ -19,12 +20,13 @@ const baseHoverStyles = css`
 
 export const Container = styled.div<{isSidebarOpen: boolean}>`
   background-color: var(--white);
-  width: ${ props => props.isSidebarOpen ? '340px' : '98px'};
+  width: ${props => (props.isSidebarOpen ? '340px' : '98px')};
   border-right: 2px solid var(--gray-50);
   min-height: 100vh;
   box-shadow: 0px 0px 14px rgba(31, 51, 71, 0.1);
   z-index: 1;
-  transition: width 250ms cubic-bezier(0, 0, 0.2, 1) ${props => props.isSidebarOpen ? '0ms' : '200ms'};
+  transition: width 250ms cubic-bezier(0, 0, 0.2, 1)
+    ${props => (props.isSidebarOpen ? '0ms' : '200ms')};
 
   header {
     position: relative;
@@ -43,7 +45,7 @@ export const Container = styled.div<{isSidebarOpen: boolean}>`
     }
 
     button {
-      position: absolute; 
+      position: absolute;
       top: 50%;
       right: 0;
       transform: translate(50%, -50%);
@@ -60,7 +62,7 @@ export const Container = styled.div<{isSidebarOpen: boolean}>`
 
       svg {
         transition: transform 200ms;
-        transform: rotate(${props => props.isSidebarOpen ? 0 : '180deg'});
+        transform: rotate(${props => (props.isSidebarOpen ? 0 : '180deg')});
       }
 
       &:hover {
@@ -90,13 +92,13 @@ export const NavItemContainer = styled.li<{isActive: boolean}>`
     svg {
       flex-shrink: 0;
     }
-  
+
     svg + p {
       margin-left: 12px;
     }
 
     &:hover {
-     ${baseHoverStyles}
+      ${baseHoverStyles}
     }
   }
 `
@@ -109,7 +111,8 @@ export const NavSubItemContainer = styled(motion.li)<{isActive: boolean}>`
     height: 6px;
     border-radius: 3px;
     margin: 0 9px 0 21px;
-    background-color: ${props => props.isActive ? 'var(--gray-900)' : 'var(--gray-600)'};
+    background-color: ${props =>
+      props.isActive ? 'var(--gray-900)' : 'var(--gray-600)'};
     transition: background-color 150ms ease-out;
   }
 
@@ -129,7 +132,10 @@ export const NavSubItemContainer = styled(motion.li)<{isActive: boolean}>`
   }
 `
 
-export const NavSectionContainer = styled.li<{isToggled: boolean, isActive:boolean}>`
+export const NavSectionContainer = styled.li<{
+  isToggled: boolean
+  isActive: boolean
+}>`
   position: relative;
 
   .toggle {
@@ -151,9 +157,9 @@ export const NavSectionContainer = styled.li<{isToggled: boolean, isActive:boole
       display: flex;
       align-items: center;
       svg {
-          transform: rotate(${props => !props.isToggled ? 0 : '180deg'});
+        transform: rotate(${props => (!props.isToggled ? 0 : '180deg')});
       }
-    } 
+    }
   }
 
   &.active .toggle {

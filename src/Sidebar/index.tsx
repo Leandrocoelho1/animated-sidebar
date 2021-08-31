@@ -1,24 +1,42 @@
-import React, { useState, ReactNode, ComponentType, useEffect, useRef  } from 'react'
-import { motion, AnimatePresence } from "framer-motion"
-import {BiCalendarCheck, BiChevronDown, BiChevronLeft, BiFile, BiHomeAlt, BiPieChart, BiPurchaseTagAlt, BiUserCircle} from 'react-icons/bi'
-import { IconBaseProps } from 'react-icons/lib'
-import { Link, useMatch } from 'react-router-dom'
-import { Container, NavItemContainer, NavSectionContainer, NavSubItemContainer } from './styles'
+import React, {
+  useState,
+  ReactNode,
+  ComponentType,
+  useEffect,
+  useRef,
+} from 'react'
+import {motion, AnimatePresence} from 'framer-motion'
+import {
+  BiCalendarCheck,
+  BiChevronDown,
+  BiChevronLeft,
+  BiFile,
+  BiHomeAlt,
+  BiPieChart,
+  BiPurchaseTagAlt,
+  BiUserCircle,
+} from 'react-icons/bi'
+import {IconBaseProps} from 'react-icons/lib'
+import {Link, useMatch} from 'react-router-dom'
+import {
+  Container,
+  NavItemContainer,
+  NavSectionContainer,
+  NavSubItemContainer,
+} from './styles'
 
 import smallLogo from './logo-small.svg'
 
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
-  
+
   return (
     <Container isSidebarOpen={isOpen}>
       <header>
         <div className="logo">
-            <img src={smallLogo} alt="Freelas" />
+          <img src={smallLogo} alt="Freelas" />
           <AnimatePresence>
-            {isOpen ? (
-              <motion.p {...fadeOut}>freelas</motion.p>
-            ) :  null}
+            {isOpen ? <motion.p {...fadeOut}>freelas</motion.p> : null}
           </AnimatePresence>
         </div>
         <button onClick={() => setIsOpen(!isOpen)}>
@@ -27,19 +45,43 @@ export function Sidebar() {
       </header>
       <nav>
         <ul>
-          <NavItem icon={BiHomeAlt} name="Dashboard" isSidebarOpen={isOpen} to="/" /> 
-          <NavSection name="Contacts" icon={BiUserCircle} isSidebarOpen={isOpen}>
+          <NavItem
+            icon={BiHomeAlt}
+            name="Dashboard"
+            isSidebarOpen={isOpen}
+            to="/"
+          />
+          <NavSection
+            name="Contacts"
+            icon={BiUserCircle}
+            isSidebarOpen={isOpen}
+          >
             <NavSubItem name="Clients" to="/contacts/clients" />
             <NavSubItem name="Providers" to="/contacts/providers" />
           </NavSection>
-          <NavItem icon={BiFile} name="Projects" isSidebarOpen={isOpen} to="/projects" /> 
-          <NavItem icon={BiCalendarCheck} name="Schedules" isSidebarOpen={isOpen} to="/schedules" /> 
+          <NavItem
+            icon={BiFile}
+            name="Projects"
+            isSidebarOpen={isOpen}
+            to="/projects"
+          />
+          <NavItem
+            icon={BiCalendarCheck}
+            name="Schedules"
+            isSidebarOpen={isOpen}
+            to="/schedules"
+          />
           <NavSection name="Finance" icon={BiPieChart} isSidebarOpen={isOpen}>
             <NavSubItem name="Income" to="/finance/income" />
             <NavSubItem name="Expenses" to="/finance/expenses" />
             <NavSubItem name="Refunds" to="/finance/refunds" />
           </NavSection>
-          <NavItem icon={BiPurchaseTagAlt} name="Marketing" isSidebarOpen={isOpen} to="/marketing" />
+          <NavItem
+            icon={BiPurchaseTagAlt}
+            name="Marketing"
+            isSidebarOpen={isOpen}
+            to="/marketing"
+          />
         </ul>
       </nav>
     </Container>
@@ -53,22 +95,19 @@ interface NavItemProps {
   name: string
 }
 
-function NavItem({ isSidebarOpen, to, name, icon: Icon }: NavItemProps) {
+function NavItem({isSidebarOpen, to, name, icon: Icon}: NavItemProps) {
   let match = useMatch(to)
   return (
     <NavItemContainer isActive={!!match}>
       <Link to={to}>
         <Icon size={24} />
         <AnimatePresence>
-          {isSidebarOpen ? ( 
-            <motion.p {...fadeOut}>{name}</motion.p>
-            ) : null}
+          {isSidebarOpen ? <motion.p {...fadeOut}>{name}</motion.p> : null}
         </AnimatePresence>
       </Link>
     </NavItemContainer>
   )
 }
-
 
 interface NavSubItemProps {
   name: string
@@ -79,10 +118,8 @@ function NavSubItem({name, to}: NavSubItemProps) {
   const match = useMatch(to)
 
   return (
-    <NavSubItemContainer variants={itemFadeIn} isActive={!!match} >
-      <div className="circle">
-        &nbsp;
-      </div>
+    <NavSubItemContainer variants={itemFadeIn} isActive={!!match}>
+      <div className="circle">&nbsp;</div>
       <Link to={to}>
         <p>{name}</p>
       </Link>
@@ -97,16 +134,21 @@ interface NavSectionProps {
   isSidebarOpen: boolean
 }
 
-function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps) {
+function NavSection({
+  icon: Icon,
+  name,
+  children,
+  isSidebarOpen,
+}: NavSectionProps) {
   const sectionRef = useRef<HTMLLIElement>(null)
   const [isToggled, setIsOpen] = useState(false)
   const [showFloaters, setShowFloaters] = useState(false)
   const match = useMatch(name.toLowerCase() + '/*')
 
-  useEffect(() => {   
+  useEffect(() => {
     if (!isSidebarOpen) {
       setIsOpen(false)
-    }    
+    }
   }, [isSidebarOpen])
 
   function handleSectionToggle() {
@@ -144,19 +186,19 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
         onClick={handleSectionToggle}
         onKeyDown={handleKeyDown}
       >
-          <div className="info">
-            {Icon && <Icon size={24} />}
-            <AnimatePresence> 
-              {isSidebarOpen ? (<motion.p {...fadeOut}>{name}</motion.p>) : null }
-            </AnimatePresence>
-          </div>
+        <div className="info">
+          {Icon && <Icon size={24} />}
           <AnimatePresence>
-            {isSidebarOpen ? (
-              <motion.div className="icon">
-                <BiChevronDown size={24} />
-              </motion.div>
-            ) : null}
+            {isSidebarOpen ? <motion.p {...fadeOut}>{name}</motion.p> : null}
           </AnimatePresence>
+        </div>
+        <AnimatePresence>
+          {isSidebarOpen ? (
+            <motion.div className="icon">
+              <BiChevronDown size={24} />
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </button>
       <AnimatePresence>
         {isToggled ? (
@@ -177,19 +219,12 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
             {...floatingListFadeIn}
             key={`floating-list-${name}`}
           >
-            <ul>
-              {children}
-            </ul>
+            <ul>{children}</ul>
           </motion.div>
         ) : null}
 
-        
         {showFloaters ? (
-          <motion.div
-            {...labelFadeIn}
-            key={`label-${name}`}
-            className="label"
-          >
+          <motion.div {...labelFadeIn} key={`label-${name}`} className="label">
             <p>{name}</p>
           </motion.div>
         ) : null}
@@ -201,10 +236,10 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
 const fadeOut = {
   initial: {opacity: 0},
   animate: {opacity: 1},
-  exit: { opacity: 0 },
+  exit: {opacity: 0},
   transition: {
-    duration: 0.2
-  }
+    duration: 0.2,
+  },
 }
 
 const labelFadeIn = {
@@ -222,22 +257,22 @@ const floatingListFadeIn = {
 }
 
 const listFadeIn = {
-  visible: { 
+  visible: {
     height: 'auto',
     marginTop: 8,
     opacity: 1,
     transition: {
       duration: 0.15,
-      when: "beforeChildren",
+      when: 'beforeChildren',
       staggerChildren: 0.05,
     },
   },
-  hidden: { 
+  hidden: {
     marginTop: 0,
     height: 0,
     opacity: 0,
     transition: {
-      when: "afterChildren",
+      when: 'afterChildren',
     },
   },
   exit: {
@@ -245,18 +280,18 @@ const listFadeIn = {
     height: 0,
     opacity: 0,
     transition: {
-      when: "afterChildren",
+      when: 'afterChildren',
     },
-  }
+  },
 }
 
 const itemFadeIn = {
-  visible: { opacity: 1, x: 0, transition: {duration: 0.2} },
-  hidden: { opacity: 0, x: -10 },
+  visible: {opacity: 1, x: 0, transition: {duration: 0.2}},
+  hidden: {opacity: 0, x: -10},
   exit: {
     opacity: 0,
     transition: {
       duration: 0.15,
-    }
-  }
+    },
+  },
 }

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import {ReactNode} from 'react'
 import type {} from 'styled-components/cssprop'
 import styled from 'styled-components/macro'
 
@@ -16,10 +16,12 @@ const ContentWrapper = styled.div`
 export function Content({children}: {children: ReactNode}) {
   return (
     <ContentWrapper>
-      <div css={`
-        display: flex;
-        flex-direction: column;
-      `}>
+      <div
+        css={`
+          display: flex;
+          flex-direction: column;
+        `}
+      >
         {children}
       </div>
     </ContentWrapper>
