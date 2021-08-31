@@ -10,6 +10,4 @@ _Based on
 by Tran Mau Tri Tam._
 
 ### Usage
-
-To start the app in development mode run the command `yarn start` in the root
-directory.
+To start the app in development mode run the command `yarn` in the root directory to install dependencies and then `yarn start` .
