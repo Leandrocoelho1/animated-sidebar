@@ -15,7 +15,7 @@ function App() {
         <Content>
           <Header />
           <Main>
-            <AnimatePresence exitBeforeEnter={true} initial={false}>
+            <AnimatePresence exitBeforeEnter={true}>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/*" element={<Page />} />
