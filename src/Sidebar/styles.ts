@@ -1,5 +1,21 @@
 import { motion } from 'framer-motion'
-import styled from 'styled-components/macro'
+import styled, {css} from 'styled-components/macro'
+
+const baseStyles = css<{isActive: boolean}>`
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 12px;
+  border-radius: 12px;
+  color: ${props => props.isActive ? 'var(--gray-900)' : 'var(--gray-600)'};
+  background-color: ${props => props.isActive ? 'var(--gray-100)' : 'transparent'};
+  transition: color 150ms ease-out, background-color 150ms ease-out;
+`
+
+const baseHoverStyles = css`
+  background-color: var(--gray-100);
+  color: var(--gray-900);
+`
 
 export const Container = styled.div<{isSidebarOpen: boolean}>`
   background-color: var(--white);
@@ -69,14 +85,7 @@ export const Container = styled.div<{isSidebarOpen: boolean}>`
 
 export const NavItemContainer = styled.li<{isActive: boolean}>`
   a {
-    display: flex;
-    align-items: center;
-    height: 48px;
-    padding: 12px;
-    border-radius: 12px;
-    color: ${props => props.isActive ? 'var(--gray-900)' : 'var(--gray-600)'};
-    background-color: ${props => props.isActive ? 'var(--gray-100)' : 'transparent'};
-    transition: color 150ms ease-out, background-color 150ms ease-out;
+    ${baseStyles}
 
     svg {
       flex-shrink: 0;
@@ -87,8 +96,7 @@ export const NavItemContainer = styled.li<{isActive: boolean}>`
     }
 
     &:hover {
-      background-color: var(--gray-100);
-      color: var(--gray-900);
+     ${baseHoverStyles}
     }
   }
 `
@@ -107,14 +115,7 @@ export const NavSubItemContainer = styled(motion.li)<{isActive: boolean}>`
 
   a {
     flex: 1;
-    display: flex;
-    align-items: center;
-    height: 48px;
-    padding: 12px;
-    border-radius: 12px;
-    color: ${props => props.isActive ? 'var(--gray-900)' : 'var(--gray-600)'};
-    background-color: ${props => props.isActive ? 'var(--gray-100)' : 'transparent'};
-    transition: color 150ms ease-out, background-color 150ms ease-out;
+    ${baseStyles}
   }
 
   &:hover {
@@ -123,8 +124,7 @@ export const NavSubItemContainer = styled(motion.li)<{isActive: boolean}>`
     }
 
     a {
-      background-color: var(--gray-100);
-      color: var(--gray-900);
+      ${baseHoverStyles}
     }
   }
 `
@@ -134,16 +134,9 @@ export const NavSectionContainer = styled.li<{isToggled: boolean, isActive:boole
 
   .toggle {
     width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    height: 48px;
-    padding: 12px;
-    border-radius: 12px;
     border: none;
-    color: ${props => props.isActive ? 'var(--gray-900)' : 'var(--gray-600)'};
-    background-color: ${props => props.isActive ? 'var(--gray-100)' : 'transparent'};
-    transition: color 150ms ease-out, background-color 150ms ease-out;
+    ${baseStyles}
 
     .info {
       display: flex;
@@ -164,8 +157,7 @@ export const NavSectionContainer = styled.li<{isToggled: boolean, isActive:boole
   }
 
   &.active .toggle {
-    color: var(--grey-900);
-    background-color: var(--gray-100);
+    ${baseHoverStyles}
   }
 
   .list {
@@ -206,7 +198,6 @@ export const NavSectionContainer = styled.li<{isToggled: boolean, isActive:boole
   }
 
   &:hover > .toggle {
-    background-color: var(--gray-100);
-    color: var(--gray-900);
+    ${baseHoverStyles}
   }
 `

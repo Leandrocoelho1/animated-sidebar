@@ -7,15 +7,6 @@ import { Container, NavItemContainer, NavSectionContainer, NavSubItemContainer }
 
 import smallLogo from './logo-small.svg'
 
-const exitAnimation = {
-  initial: {opacity: 0},
-  animate: {opacity: 1},
-  exit: { opacity: 0 },
-  transition: {
-    duration: 0.2
-  }
-}
-
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
   
@@ -26,7 +17,7 @@ export function Sidebar() {
             <img src={smallLogo} alt="Freelas" />
           <AnimatePresence>
             {isOpen ? (
-              <motion.p {...exitAnimation}>freelas</motion.p>
+              <motion.p {...fadeOut}>freelas</motion.p>
             ) :  null}
           </AnimatePresence>
         </div>
@@ -70,53 +61,12 @@ function NavItem({ isSidebarOpen, to, name, icon: Icon }: NavItemProps) {
         <Icon size={24} />
         <AnimatePresence>
           {isSidebarOpen ? ( 
-            <motion.p {...exitAnimation}>{name}</motion.p>
+            <motion.p {...fadeOut}>{name}</motion.p>
             ) : null}
         </AnimatePresence>
       </Link>
     </NavItemContainer>
   )
-}
-
-
-const list = {
-  visible: { 
-    height: 'auto',
-    marginTop: 8,
-    opacity: 1,
-    transition: {
-      duration: 0.15,
-      when: "beforeChildren",
-      staggerChildren: 0.05,
-    },
-  },
-  hidden: { 
-    marginTop: 0,
-    height: 0,
-    opacity: 0,
-    transition: {
-      when: "afterChildren",
-    },
-  },
-  exit: {
-    marginTop: 0,
-    height: 0,
-    opacity: 0,
-    transition: {
-      when: "afterChildren",
-    },
-  }
-}
-
-const item = {
-  visible: { opacity: 1, x: 0, transition: {duration: 0.2} },
-  hidden: { opacity: 0, x: -10 },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.15,
-    }
-  }
 }
 
 
@@ -129,7 +79,7 @@ function NavSubItem({name, to}: NavSubItemProps) {
   const match = useMatch(to)
 
   return (
-    <NavSubItemContainer variants={item} isActive={!!match} >
+    <NavSubItemContainer variants={itemFadeIn} isActive={!!match} >
       <div className="circle">
         &nbsp;
       </div>
@@ -151,7 +101,6 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
   const sectionRef = useRef<HTMLLIElement>(null)
   const [isToggled, setIsOpen] = useState(false)
   const [showFloaters, setShowFloaters] = useState(false)
-
   const match = useMatch(name.toLowerCase() + '/*')
 
   useEffect(() => {   
@@ -164,7 +113,6 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
     if (!isSidebarOpen) return
     setIsOpen(!isToggled)
   }
-
 
   function shouldShowFloaters() {
     if (isSidebarOpen) return
@@ -199,7 +147,7 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
           <div className="info">
             {Icon && <Icon size={24} />}
             <AnimatePresence> 
-              {isSidebarOpen ? (<motion.p {...exitAnimation}>{name}</motion.p>) : null }
+              {isSidebarOpen ? (<motion.p {...fadeOut}>{name}</motion.p>) : null }
             </AnimatePresence>
           </div>
           <AnimatePresence>
@@ -216,7 +164,7 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
             initial="hidden"
             animate="visible"
             exit="exit"
-            variants={list}
+            variants={listFadeIn}
             className="list"
           >
             {children}
@@ -226,10 +174,7 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
         {showFloaters ? (
           <motion.div
             className="floating-list"
-            initial={{opacity: 0, y: -10}}
-            animate={{opacity: 1, y: 0}}
-            exit={{opacity: 0, y: -10}}
-            transition={{duration: 0.2}}
+            {...floatingListFadeIn}
             key={`floating-list-${name}`}
           >
             <ul>
@@ -241,10 +186,7 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
         
         {showFloaters ? (
           <motion.div
-            initial={{opacity: 0, x: -10}}
-            animate={{opacity: 1, x: 0}}
-            exit={{opacity: 0, x: -10}}
-            transition={{duration: 0.15}}
+            {...labelFadeIn}
             key={`label-${name}`}
             className="label"
           >
@@ -254,4 +196,67 @@ function NavSection({icon: Icon, name, children, isSidebarOpen}: NavSectionProps
       </AnimatePresence>
     </NavSectionContainer>
   )
+}
+
+const fadeOut = {
+  initial: {opacity: 0},
+  animate: {opacity: 1},
+  exit: { opacity: 0 },
+  transition: {
+    duration: 0.2
+  }
+}
+
+const labelFadeIn = {
+  initial: {opacity: 0, x: -10},
+  animate: {opacity: 1, x: 0},
+  exit: {opacity: 0, x: -10},
+  transition: {duration: 0.15},
+}
+
+const floatingListFadeIn = {
+  initial: {opacity: 0, y: -10},
+  animate: {opacity: 1, y: 0},
+  exit: {opacity: 0, y: -10},
+  transition: {duration: 0.2},
+}
+
+const listFadeIn = {
+  visible: { 
+    height: 'auto',
+    marginTop: 8,
+    opacity: 1,
+    transition: {
+      duration: 0.15,
+      when: "beforeChildren",
+      staggerChildren: 0.05,
+    },
+  },
+  hidden: { 
+    marginTop: 0,
+    height: 0,
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  },
+  exit: {
+    marginTop: 0,
+    height: 0,
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  }
+}
+
+const itemFadeIn = {
+  visible: { opacity: 1, x: 0, transition: {duration: 0.2} },
+  hidden: { opacity: 0, x: -10 },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.15,
+    }
+  }
 }
