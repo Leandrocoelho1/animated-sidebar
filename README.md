@@ -9,5 +9,12 @@ _Based on
 [this design](https://dribbble.com/shots/16271760-Sidebar-navigation-for-Dashboard)
 by Tran Mau Tri Tam._
 
-### Usage
-To start the app in development mode run the command `yarn` in the root directory to install dependencies and then `yarn start` .
+### How to run the application
+
+Clone the repository and in the project directory, you can run:
+
+`yarn` - To install all dependencies.
+
+and then
+
+`yarn start` - To run the app in development mode.
