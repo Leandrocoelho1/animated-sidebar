@@ -1,24 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route} from 'react-router-dom'
+import { GlobalStyles } from './styles/global'
+import { Content, Header, Layout, Main} from './Layout'
+import {Sidebar} from './Sidebar'
+
+function Home() {
+  return (
+    <>
+      <h1>Home</h1>
+      <div style={{background: 'red', height: '1000px'}}>ae</div>
+    </>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GlobalStyles />
+      <Layout>
+        <Sidebar />
+        <Content>
+          <Header />
+          <Main>
+            <Routes>
+              <Route path="/" element={<Home />}/>
+              <Route path="/about" element={<h1>About</h1>}/>
+            </Routes>
+          </Main>
+        </Content>
+      </Layout>
     </div>
   );
 }
