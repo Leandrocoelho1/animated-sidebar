@@ -86,8 +86,10 @@ export const Container = styled.div<{isSidebarOpen: boolean}>`
 `
 
 export const NavItemContainer = styled.li<{isActive: boolean}>`
+  position: relative;
+
   a {
-    ${baseStyles}
+    ${baseStyles};
 
     svg {
       flex-shrink: 0;
@@ -98,7 +100,7 @@ export const NavItemContainer = styled.li<{isActive: boolean}>`
     }
 
     &:hover {
-      ${baseHoverStyles}
+      ${baseHoverStyles};
     }
   }
 `
@@ -118,7 +120,7 @@ export const NavSubItemContainer = styled(motion.li)<{isActive: boolean}>`
 
   a {
     flex: 1;
-    ${baseStyles}
+    ${baseStyles};
   }
 
   &:hover {
@@ -127,7 +129,7 @@ export const NavSubItemContainer = styled(motion.li)<{isActive: boolean}>`
     }
 
     a {
-      ${baseHoverStyles}
+      ${baseHoverStyles};
     }
   }
 `
@@ -142,7 +144,7 @@ export const NavSectionContainer = styled.li<{
     width: 100%;
     justify-content: space-between;
     border: none;
-    ${baseStyles}
+    ${baseStyles};
 
     .info {
       display: flex;
@@ -163,7 +165,7 @@ export const NavSectionContainer = styled.li<{
   }
 
   &.active .toggle {
-    ${baseHoverStyles}
+    ${baseHoverStyles};
   }
 
   .list {
@@ -179,6 +181,7 @@ export const NavSectionContainer = styled.li<{
     top: 0;
     left: 0;
     position: absolute;
+    z-index: 1;
 
     ul {
       margin-top: 56px;
@@ -204,6 +207,35 @@ export const NavSectionContainer = styled.li<{
   }
 
   &:hover > .toggle {
-    ${baseHoverStyles}
+    ${baseHoverStyles};
   }
+`
+
+export const Label = styled(motion.div)`
+  position: absolute;
+  top: 6px;
+  left: calc(100% + 8px);
+  height: 36px;
+  border-radius: 8px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  background: var(--gray-900);
+  color: var(--white);
+`
+
+export const NotificationContainer = styled(motion.div)<{
+  color: 'green' | 'orange'
+}>`
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+
+  background-color: ${props => `var(--${props.color})`};
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `

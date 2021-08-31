@@ -3,15 +3,8 @@ import {Routes, Route} from 'react-router-dom'
 import {GlobalStyles} from './styles/global'
 import {Content, Header, Layout, Main} from './Layout'
 import {Sidebar} from './Sidebar'
-
-function Home() {
-  return (
-    <>
-      <h1>Home</h1>
-      <div style={{background: 'red', height: '1000px'}}>ae</div>
-    </>
-  )
-}
+import {Dashboard, Page} from './View'
+import {AnimatePresence} from 'framer-motion'
 
 function App() {
   return (
@@ -22,10 +15,12 @@ function App() {
         <Content>
           <Header />
           <Main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<h1>About</h1>} />
-            </Routes>
+            <AnimatePresence exitBeforeEnter={true} initial={false}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/*" element={<Page />} />
+              </Routes>
+            </AnimatePresence>
           </Main>
         </Content>
       </Layout>
